@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('resources')).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<BaseLayout title={d.title} description={d.summary}><Header/><main class="container detail"><a class="back" href="/resources">← 返回资源导航</a><div class="eyebrow">{d.category}{d.subcategory?` · ${d.subcategory}`:''}</div><h1>{d.title}</h1><p class="lead">{d.summary}</p><div class="tags">{d.tags.map((t:string)=><span class="tag">{t}</span>)}</div><div class="panel"><div><b>为什么推荐</b><p>{d.reason||'已收录至红潮链资源库。'}</p></div><a class="btn primary" href={d.url} target="_blank" rel="noopener">访问网站 ↗</a></div><article><Content/></article></main><Footer/></BaseLayout>
+<style>.detail{padding:76px 0;max-width:850px}.back{font-size:13px;color:var(--muted);display:block;margin-bottom:52px}.detail h1{font-size:58px;letter-spacing:-.04em;margin:12px 0}.lead{font-size:20px;line-height:1.7;color:var(--muted)}.panel{margin:38px 0;padding:24px;border:1px solid var(--line);background:#fff;border-radius:20px;display:flex;justify-content:space-between;gap:25px;align-items:center}.panel p{margin:8px 0 0;color:var(--muted)}article{font-size:16px;line-height:1.9}article :global(h2){margin-top:42px}@media(max-width:700px){.detail h1{font-size:42px}.panel{align-items:start;flex-direction:column}}</style>

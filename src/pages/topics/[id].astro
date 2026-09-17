@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('topics')).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<BaseLayout title={d.title} description={d.summary}><Header/><main class="container detail"><a href="/">← 返回首页</a><div class="eyebrow">HONGCHAO TOPIC</div><h1>{d.title}</h1><p>{d.summary}</p><article><Content/></article></main><Footer/></BaseLayout><style>.detail{padding:80px 0;max-width:850px}.detail>a{font-size:13px;color:var(--muted)}h1{font-size:58px;letter-spacing:-.04em}p{font-size:19px;color:var(--muted);line-height:1.8}article{margin-top:42px;line-height:1.9}</style>

@@ -1,0 +1,12 @@
+{
+  "hotKeywords": ["党建品牌", "述职报告", "党务SOP", "央企职场", "AI办公", "制度模板"],
+  "modules": [
+    {"id":"hero","title":"首页搜索","subtitle":"从一个关键词开始","visible":true,"order":10},
+    {"id":"resources","title":"今天大家都在找","subtitle":"高频、实用、值得收藏的资源","visible":true,"order":20},
+    {"id":"library","title":"精选资料","subtitle":"把重复找资料的时间省下来","visible":true,"order":30},
+    {"id":"tools","title":"效率工具","subtitle":"把工具真正用进工作里","visible":true,"order":40},
+    {"id":"topics","title":"红潮专题","subtitle":"围绕一个问题，给你一套完整答案","visible":true,"order":50},
+    {"id":"articles","title":"最新文章","subtitle":"真实经验、长期沉淀","visible":true,"order":60},
+    {"id":"about","title":"关于红潮","subtitle":"连接真实经验，也连接同行的人","visible":true,"order":70}
+  ]
+}

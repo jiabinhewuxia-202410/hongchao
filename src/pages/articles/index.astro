@@ -1,0 +1,4 @@
+---
+import{getCollection}from'astro:content';import BaseLayout from '../../layouts/BaseLayout.astro';import Header from '../../components/Header.astro';import Footer from '../../components/Footer.astro';import ContentCard from '../../components/ContentCard.astro';const all=(await getCollection('articles')).sort((a,b)=>+new Date(b.data.publishedAt)-+new Date(a.data.publishedAt));
+---
+<BaseLayout title="红潮文章"><Header/><main class="container page"><div class="eyebrow">HONGCHAO JOURNAL</div><h1>红潮文章</h1><p>不堆概念，写真实工作里留下来的经验与判断。</p><div class="grid list">{all.map(entry=><ContentCard entry={entry} type="article"/>)}</div></main><Footer/></BaseLayout><style>.page{padding:80px 0}.page h1{font-size:58px;margin:10px 0}.page>p{color:var(--muted);font-size:18px}.list{margin-top:38px}</style>

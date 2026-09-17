@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+import site from '../data/settings/site.json';
+const { title = site.name, description = site.slogan, image = '', canonical } = Astro.props;
+const pageTitle = title === site.name ? title : `${title}｜${site.name}`;
+const canonicalUrl = canonical || Astro.url.href;
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="icon" href={site.favicon} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  {image && <meta property="og:image" content={image} />}
+</head>
+<body>
+  <slot />
+</body>
+</html>

@@ -1,0 +1,5 @@
+---
+const { entry, type='article' }=Astro.props; const d=entry.data; const href=type==='article'?`/articles/${entry.id}`:type==='library'?`/library/${entry.id}`:`/topics/${entry.id}`;
+---
+<a class="card content" href={href}><div class="kind">{type==='article'?(d.column||'文章'):type==='library'?(d.fileType||'资料'):'专题'}</div><h3>{d.title}</h3><p>{d.summary}</p><div class="more">查看详情 <span>→</span></div></a>
+<style>.content{display:block}.kind{font-size:11px;letter-spacing:.08em;color:var(--accent);font-weight:700}h3{font-size:19px;margin:16px 0 10px;line-height:1.35}p{font-size:14px;line-height:1.75;color:var(--muted);margin:0}.more{margin-top:24px;font-size:13px;display:flex;justify-content:space-between}</style>

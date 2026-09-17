@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('articles')).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<BaseLayout title={d.title} description={d.summary}><Header/><main class="container article"><a href="/articles">← 返回文章</a><div class="eyebrow">{d.column}</div><h1>{d.title}</h1><p class="summary">{d.summary}</p><div class="meta">{d.author} · {new Date(d.publishedAt).toLocaleDateString('zh-CN')}</div><article><Content/></article></main><Footer/></BaseLayout><style>.article{padding:76px 0;max-width:800px}.article>a{display:block;color:var(--muted);font-size:13px;margin-bottom:54px}.article h1{font-size:56px;line-height:1.14;letter-spacing:-.045em;margin:12px 0 20px}.summary{font-size:20px;line-height:1.8;color:var(--muted)}.meta{font-size:13px;color:var(--muted);margin:22px 0 50px;padding-bottom:22px;border-bottom:1px solid var(--line)}article{line-height:2;font-size:16px}article :global(h2){margin-top:46px}@media(max-width:700px){.article h1{font-size:40px}}</style>

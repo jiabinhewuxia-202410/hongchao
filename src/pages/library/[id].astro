@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  return (await getCollection('library')).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<BaseLayout title={d.title} description={d.summary}><Header/><main class="container detail"><a href="/library">← 返回文库</a><div class="eyebrow">{d.category} · {d.fileType}</div><h1>{d.title}</h1><p class="lead">{d.summary}</p>{d.fileUrl&&<a class="btn primary" href={d.fileUrl} target="_blank">打开资料 ↗</a>}<article><Content/></article></main><Footer/></BaseLayout><style>.detail{padding:76px 0;max-width:850px}.detail>a:first-child{display:block;color:var(--muted);font-size:13px;margin-bottom:50px}.detail h1{font-size:54px;letter-spacing:-.04em}.lead{font-size:19px;line-height:1.8;color:var(--muted)}article{margin-top:42px;line-height:1.9}</style>

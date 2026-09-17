@@ -1,0 +1,4 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';import Header from '../components/Header.astro';import Footer from '../components/Footer.astro';
+---
+<BaseLayout title="效率工具"><Header/><main class="container page"><div class="eyebrow">TOOLS</div><h1>效率工具</h1><p>第一阶段保留入口。后续按实际工作场景逐步加入 AI、写作、检索与自动化工具。</p><div class="grid list"><a class="card" href="/search?q=AI办公"><h3>AI 办公</h3><p>写作、总结、搜索与辅助分析。</p></a><a class="card" href="/search?q=模板"><h3>模板工具</h3><p>常用材料、表格、PPT 与制度模板。</p></a><a class="card" href="/search?q=党务"><h3>党务工具箱</h3><p>SOP、制度、案例与常见问题。</p></a></div></main><Footer/></BaseLayout><style>.page{padding:80px 0}.page h1{font-size:58px}.page>p,.card p{color:var(--muted);line-height:1.7}.list{margin-top:36px}</style>

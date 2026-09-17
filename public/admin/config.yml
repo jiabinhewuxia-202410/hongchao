@@ -1,0 +1,139 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/hongchao-chain-2
+  branch: main
+  # 正式上线时配置 OAuth 服务：
+  # base_url: https://auth.your-domain.com
+  # auth_endpoint: auth
+
+local_backend: true
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: simple
+locale: zh_Hans
+
+collections:
+  - name: settings
+    label: 网站设置
+    files:
+      - name: site
+        label: 基础设置
+        file: src/data/settings/site.json
+        format: json
+        fields:
+          - {label: 网站名称, name: name, widget: string}
+          - {label: 网站简称, name: shortName, widget: string}
+          - {label: Slogan, name: slogan, widget: text}
+          - {label: 首页主标题, name: heroTitle, widget: text}
+          - {label: 首页副标题, name: heroSubtitle, widget: string}
+          - {label: Logo, name: logo, widget: image, required: false}
+          - {label: 网站图标, name: favicon, widget: image, required: false}
+          - {label: 公众号名称, name: wechatName, widget: string, required: false}
+          - {label: 公众号二维码, name: wechatQr, widget: image, required: false}
+          - {label: 联系方式, name: contact, widget: string, required: false}
+          - {label: 版权信息, name: copyright, widget: string}
+      - name: home
+        label: 首页模块
+        file: src/data/settings/home.json
+        format: json
+        fields:
+          - label: 热门关键词
+            name: hotKeywords
+            widget: list
+          - label: 首页模块
+            name: modules
+            widget: list
+            summary: '{{fields.order}} · {{fields.title}} · {{fields.visible}}'
+            fields:
+              - {label: 模块ID, name: id, widget: select, options: [hero, resources, library, tools, topics, articles, about]}
+              - {label: 标题, name: title, widget: string}
+              - {label: 副标题, name: subtitle, widget: string, required: false}
+              - {label: 是否显示, name: visible, widget: boolean, default: true}
+              - {label: 排序值, name: order, widget: number, value_type: int, default: 100}
+
+  - name: resources
+    label: 资源导航
+    label_singular: 资源
+    folder: src/content/resources
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    summary: '{{title}} · {{category}}'
+    fields:
+      - {label: 资源名称, name: title, widget: string}
+      - {label: Logo, name: logo, widget: image, required: false}
+      - {label: 网址, name: url, widget: string}
+      - {label: 一句话简介, name: summary, widget: text}
+      - {label: 详细介绍, name: description, widget: text, required: false}
+      - {label: 推荐理由, name: reason, widget: text, required: false}
+      - {label: 一级分类, name: category, widget: string}
+      - {label: 二级分类, name: subcategory, widget: string, required: false}
+      - {label: 标签, name: tags, widget: list, required: false}
+      - {label: 是否精选, name: featured, widget: boolean, default: false}
+      - {label: 首页展示, name: home, widget: boolean, default: false}
+      - {label: 排序值, name: order, widget: number, value_type: int, default: 100}
+      - {label: 创建时间, name: createdAt, widget: datetime}
+      - {label: 更新时间, name: updatedAt, widget: datetime, required: false}
+      - {label: 正文, name: body, widget: markdown, required: false}
+
+  - name: library
+    label: 红潮文库
+    label_singular: 资料
+    folder: src/content/library
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    fields:
+      - {label: 资料名称, name: title, widget: string}
+      - {label: 封面, name: cover, widget: image, required: false}
+      - {label: 简介, name: summary, widget: text}
+      - {label: 分类, name: category, widget: string}
+      - {label: 标签, name: tags, widget: list, required: false}
+      - {label: 文件地址, name: fileUrl, widget: string, required: false}
+      - {label: 文件格式, name: fileType, widget: string, default: PDF}
+      - {label: 是否精选, name: featured, widget: boolean, default: false}
+      - {label: 首页推荐, name: home, widget: boolean, default: false}
+      - {label: 排序值, name: order, widget: number, value_type: int, default: 100}
+      - {label: 发布时间, name: publishedAt, widget: datetime}
+      - {label: 正文, name: body, widget: markdown, required: false}
+
+  - name: articles
+    label: 红潮文章
+    label_singular: 文章
+    folder: src/content/articles
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    fields:
+      - {label: 文章标题, name: title, widget: string}
+      - {label: 封面, name: cover, widget: image, required: false}
+      - {label: 摘要, name: summary, widget: text}
+      - {label: 作者, name: author, widget: string, default: 红潮}
+      - {label: 栏目, name: column, widget: string, default: 红潮随想}
+      - {label: 标签, name: tags, widget: list, required: false}
+      - {label: 发布时间, name: publishedAt, widget: datetime}
+      - {label: 是否推荐, name: featured, widget: boolean, default: false}
+      - {label: 首页展示, name: home, widget: boolean, default: false}
+      - {label: 排序值, name: order, widget: number, value_type: int, default: 100}
+      - {label: 正文, name: body, widget: markdown}
+
+  - name: topics
+    label: 红潮专题
+    label_singular: 专题
+    folder: src/content/topics
+    create: true
+    extension: md
+    format: frontmatter
+    slug: '{{slug}}'
+    fields:
+      - {label: 专题名称, name: title, widget: string}
+      - {label: 专题封面, name: cover, widget: image, required: false}
+      - {label: 专题简介, name: summary, widget: text}
+      - {label: 关联资源ID, name: relatedResources, widget: list, required: false}
+      - {label: 关联文章ID, name: relatedArticles, widget: list, required: false}
+      - {label: 首页展示, name: home, widget: boolean, default: false}
+      - {label: 排序值, name: order, widget: number, value_type: int, default: 100}
+      - {label: 专题内容, name: body, widget: markdown}
